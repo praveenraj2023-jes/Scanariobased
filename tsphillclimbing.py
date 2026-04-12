@@ -41,10 +41,10 @@ def solvetsphillclimbing(cities, distances):
         step += 1
     return currentroute, currentdistance
 if __name__ == "__main__":
-    num_cities = int(input("Enter the number of cities: "))
+    numcities = int(input("Enter the number of cities: "))
     locations = []
-    print(f"Enter the names of the {num_cities} cities (one per line):")
-    for _ in range(num_cities):
+    print(f"Enter the names of the {numcities} cities (one per line):")
+    for i in range(numcities):
         locations.append(input().strip())
 
     mapdistances = {}
