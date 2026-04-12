@@ -11,7 +11,7 @@ neighbors = {
 
 
 
-def isValid(region, color, assignment):
+def isvalid(region, color, assignment):
     for neighbor in neighbors[region]:
         if neighbor in assignment and assignment[neighbor] == color:
             return False
@@ -31,7 +31,7 @@ def backtrack(assignment):
     
     
     for color in colors:
-        if isValid(region, color, assignment):
+        if isvalid(region, color, assignment):
             
             assignment[region] = color  
             

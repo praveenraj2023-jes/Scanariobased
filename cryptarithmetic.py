@@ -2,7 +2,7 @@
 letters = ['S', 'E', 'N', 'D', 'M', 'O', 'R', 'Y']
 
 
-def isValid(assign):
+def isvalid(assign):
     
     
     if len(set(assign.values())) < len(assign):
@@ -16,12 +16,12 @@ def isValid(assign):
     
     
     if len(assign) == len(letters):
-        S,E,N,D = assign['S'], assign['E'], assign['N'], assign['D']
-        M,O,R,Y = assign['M'], assign['O'], assign['R'], assign['Y']
+        s,e,n,d = assign['S'], assign['E'], assign['N'], assign['D']
+        m,o,r,y = assign['M'], assign['O'], assign['R'], assign['Y']
         
-        send  = 1000*S + 100*E + 10*N + D
-        more  = 1000*M + 100*O + 10*R + E
-        money = 10000*M + 1000*O + 100*N + 10*E + Y
+        send  = 1000*s + 100*e + 10*n + d
+        more  = 1000*m + 100*o + 10*r + e
+        money = 10000*m + 1000*o + 100*n + 10*e + y
         
         return send + more == money
     
@@ -46,7 +46,7 @@ def backtrack(assign):
         assign[letter] = digit 
         
         
-        if isValid(assign):
+        if isvalid(assign):
             
             result = backtrack(assign)
             
@@ -68,12 +68,12 @@ print(solution)
 
 
 if solution:
-    S,E,N,D = solution['S'], solution['E'], solution['N'], solution['D']
-    M,O,R,Y = solution['M'], solution['O'], solution['R'], solution['Y']
+    s,e,n,d = solution['S'], solution['E'], solution['N'], solution['D']
+    m,o,r,y = solution['M'], solution['O'], solution['R'], solution['Y']
     
-    send  = 1000*S + 100*E + 10*N + D
-    more  = 1000*M + 100*O + 10*R + E
-    money = 10000*M + 1000*O + 100*N + 10*E + Y
+    send  = 1000*s + 100*e + 10*n + d
+    more  = 1000*m + 100*o + 10*r + e
+    money = 10000*m + 1000*o + 100*n + 10*e + y
     
     print("\nVerification:")
     print(send, "+", more, "=", money)

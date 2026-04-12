@@ -13,7 +13,7 @@ board = [
 
 
 
-def isValid(board, row, col, num):
+def isvalid(board, row, col, num):
     
     
     for i in range(9):
@@ -26,19 +26,19 @@ def isValid(board, row, col, num):
             return False
     
     
-    startRow = row - row % 3
-    startCol = col - col % 3
+    startrow = row - row % 3
+    startcol = col - col % 3
     
     for i in range(3):
         for j in range(3):
-            if board[startRow + i][startCol + j] == num:
+            if board[startrow + i][startcol + j] == num:
                 return False
     
     return True
 
 
 
-def solveSudoku(board):
+def solvesudoku(board):
     
     for row in range(9):
         for col in range(9):
@@ -47,11 +47,11 @@ def solveSudoku(board):
                 
                 for num in range(1, 10):
                     
-                    if isValid(board, row, col, num):
+                    if isvalid(board, row, col, num):
                         
                         board[row][col] = num  # Assign
                         
-                        if solveSudoku(board):
+                        if solvesudoku(board):
                             return True
                         
                         board[row][col] = 0  
@@ -62,7 +62,7 @@ def solveSudoku(board):
 
 
 
-if solveSudoku(board):
+if solvesudoku(board):
     print("Solved Sudoku:")
     for row in board:
         print(row)
