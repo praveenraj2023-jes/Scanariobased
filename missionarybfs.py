@@ -1,7 +1,7 @@
 from collections import deque
 
 
-def valid_state(m, c):
+def validstate(m, c):
     
     if m < 0 or c < 0 or m > 3 or c > 3:
         return False
@@ -43,14 +43,14 @@ def bfs():
             dm,dc = move
 
             if b == 1:
-                new_state = (m-dm,c-dc,0)
+                newstate = (m-dm,c-dc,0)
             else:
-                new_state = (m+dm,c+dc,1)
+                newstate = (m+dm,c+dc,1)
 
-            nm,nc,nb = new_state
+            nm,nc,nb = newstate
 
-            if valid_state(nm,nc) and new_state not in visited:
-                queue.append((new_state,path+[new_state]))
+            if validstate(nm,nc) and newstate not in visited:
+                queue.append((newstate,path+[newstate]))
 
     return None
 

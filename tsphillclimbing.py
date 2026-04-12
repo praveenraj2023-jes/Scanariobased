@@ -41,13 +41,24 @@ def solvetsphillclimbing(cities, distances):
         step += 1
     return currentroute, currentdistance
 if __name__ == "__main__":
-    locations = ['Chennai', 'Bangalore', 'Hyderabad', 'Mumbai']
-    mapdistances = {
-        'Chennai':   {'Chennai': 0, 'Bangalore': 350, 'Hyderabad': 630, 'Mumbai': 1300},
-        'Bangalore': {'Chennai': 350, 'Bangalore': 0, 'Hyderabad': 570, 'Mumbai': 980},
-        'Hyderabad': {'Chennai': 630, 'Bangalore': 570, 'Hyderabad': 0, 'Mumbai': 700},
-        'Mumbai':    {'Chennai': 1300, 'Bangalore': 980, 'Hyderabad': 700, 'Mumbai': 0}
-    }
+    num_cities = int(input("Enter the number of cities: "))
+    locations = []
+    print(f"Enter the names of the {num_cities} cities (one per line):")
+    for _ in range(num_cities):
+        locations.append(input().strip())
+
+    mapdistances = {}
+    print("Enter the distances between the cities.")
+    for city1 in locations:
+        mapdistances[city1] = {}
+        for city2 in locations:
+            if city1 == city2:
+                mapdistances[city1][city2] = 0
+            else:
+                dist = int(input(f"Enter distance from {city1} to {city2}: "))
+                mapdistances[city1][city2] = dist
+
+    print("\nStarting search...")
     finalroute, finaldistance = solvetsphillclimbing(locations, mapdistances)
-    print(f"Route: {' -> '.join(finalroute)} -> {finalroute[0]}")
-    print(f"Distance: {finaldistance}")
+    print(f"\nFinal Route: {' -> '.join(finalroute)} -> {finalroute[0]}")
+    print(f"Final Distance: {finaldistance}")
