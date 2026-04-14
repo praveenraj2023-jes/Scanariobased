@@ -1,55 +1,56 @@
-def issafe(state):
-    mleft, cleft, boat = state
-    mright = 3 - mleft
-    cright = 3 - cleft
-    if mleft < 0 or mright < 0 or cleft < 0 or cright < 0:
-        return False
-    if mleft > 0 and cleft > mleft:
-        return False
-    if mright > 0 and cright > mright:
-        return False
-    return True
-def getlegalmoves(state):
-    mleft, cleft, boatposition = state
-    legalmoves = []
-    boatoptions = [
-        (1, 0),
-        (2, 0),
-        (0, 1),
-        (0, 2),
-        (1, 1)
-    ]
-    for minboat, cinboat in boatoptions:
-        if boatposition == 'Left':
-            newstate = (mleft - minboat, cleft - cinboat, 'Right')
-            action = f"L->R: {minboat}M {cinboat}C"
-        else:
-            newstate = (mleft + minboat, cleft + cinboat, 'Left')
-            action = f"R->L: {minboat}M {cinboat}C"
-        if issafe(newstate):
-            legalmoves.append((action, newstate))
-    return legalmoves
-def solvewithbfs(startstate):
-    queue = [(startstate, [])]
-    visitedstates = set()
-    visitedstates.add(startstate)
-    while queue:
-        currentstate, actionhistory = queue.pop(0)
-        if currentstate == (0, 0, 'Right'):
-            return actionhistory
-        futuremoves = getlegalmoves(currentstate)
-        for action, nextstate in futuremoves:
-            if nextstate not in visitedstates:
-                visitedstates.add(nextstate)
-                queue.append((nextstate, actionhistory + [action]))
-    return None
-if __name__ == "__main__":
-    initialstate = (3, 3, 'Left')
+from collections import deque
 
-    solution = solvewithbfs(initialstate)
-    if solution:
-        print("Solution:")
-        for step, move in enumerate(solution, 1):
-            print(f"{step}: {move}")
-    else:
-        print("No solution")
+def valid_state(m,c):
+    if m<0 or c<0 or m>3 or c>3:
+        return False
+    if m>0 and c>m:
+        return False
+    if (3-m)>0 and (3-c)>(3-m):
+        return False
+
+    return True
+
+def bfs():
+    start=(3,3,1)
+    goal=(0,0,0)
+
+    moves=[(1,0),(2,0),(0,1),(0,2),(1,1)]
+
+    queue=deque()
+    queue.append((start,[start]))
+
+    visited=set()
+
+    while queue:
+        state,path=queue.popleft()
+
+        if state==goal:
+            return path
+
+        visited.add(state)
+
+        m,c,b=state
+
+        for move in moves:
+            dm,dc=move
+
+            if b==1:
+                newstate=(m-dm,c-dc,0)
+            else:
+                newstate=(m+dm,c+dc,1)
+
+            nm,nc,nb=newstate
+
+            if valid_state(nm,nc) and newstate not in visited:
+                queue.append((newstate,path+[newstate]))
+
+    return None
+
+solution=bfs()
+
+print("minimum path")
+for step in solution:
+    print(step)
+
+print("Minimum crossings")
+print(len(solution)-1)
